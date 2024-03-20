@@ -1,37 +1,37 @@
 import pytest
 
 
-def size(lst: list) -> int:
-    return len(lst)
+class Stack:
+    def __init__(self):
+        self.lst = []
 
+    def size_of_stack(self) -> int:
+        return len(self.lst)
 
-def is_empty(lst: list) -> bool:
-    return len(lst) == 0
+    def is_empty(self) -> bool:
+        return len(self.lst) == 0
 
+    def peek(self) -> any:
+        return self.lst[-1]
 
-def peek(lst: list) -> any:
-    return lst[-1]
+    def pop(self) -> any:
+        return self.lst.pop()
 
-
-def pop(lst: list) -> any:
-    return lst.pop()
-
-
-def push(element: any, sequence: list):
-    sequence.append(element)
+    def push(self, element: any):
+        self.lst.append(element)
 
 
 def custom_func(sequence: str) -> bool:
-    stack = []
+    st1 = Stack()
     if sequence == '':
         return False
     for letter in sequence:
         if letter in "({[":
-            push(letter, stack)
-        elif letter in ")}]" and is_empty(stack):
+            st1.push(letter)
+        elif letter in ")}]" and st1.is_empty():
             return False
         else:
-            check = pop(stack)
+            check = st1.pop()
             if check == '(' and letter == ')':
                 continue
             if check == '{' and letter == '}':
@@ -39,7 +39,7 @@ def custom_func(sequence: str) -> bool:
             if check == '[' and letter == ']':
                 continue
             return False
-    return is_empty(stack)
+    return st1.is_empty()
 
 
 def using_list_methods(sequence: str) -> bool:
